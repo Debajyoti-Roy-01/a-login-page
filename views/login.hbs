@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Login</title>
+	</head>
+	<body style="    background-color: #28416e;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
+    align-items: center;
+    margin-top: 20%;">
+	<div style="    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    background-color: aquamarine;">
+		<h1 style="margin: 10%;">Login</h1>
+		<form id="login" style="    display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: flex-end;
+		align-content: flex-end;">
+			<input type="text" autocomplete="off" id="username" placeholder="Username" style="    border: 10px solid darkgreen;
+			border-radius: 20px;" />
+			<input type="password" autocomplete="off" id="password" placeholder="Password" style="    border: 10px solid darkgreen;
+			border-radius: 20px;
+			margin-top: 3%;
+			margin-bottom: 2%;" />
+			<input type="submit" value="Submit Form" style="border-radius: 10px;
+			background-color: chartreuse;" />
+		</form>
+        <div>
+			<p style="    background-color: bisque;">New to this platform!!</p>
+			<a href="/"><span><button style="border-radius: 10px;margin-bottom:1%;background-color:aqua">Register now</button></span></a>
+		</div>
+		<script>
+			const form = document.getElementById('login')
+			form.addEventListener('submit', login)
+
+			async function login(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+
+				const result = await fetch('/api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everythign went fine
+					console.log('Got the token: ', result.data)
+					localStorage.setItem('token', result.data)
+					alert('Success')
+				} else {
+					alert(result.error)
+				}
+			}
+		</script>
+	</div>
+	</body>
+</html>
