@@ -6,7 +6,7 @@ const User = require('./model/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const hbs=require("hbs");
-const port=process.env.PORT||11000;
+const port=process.env.PORT || 10000;
 
 const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 const MONGOURI='mongodb+srv://Debajyoti:2hy61vTl2B9KFRkE@cluster0.v5atl.mongodb.net/mernstack?retryWrites=true&w=majority';
@@ -27,40 +27,6 @@ app.get("",(req,res)=>{
 app.get("/login",(req,res)=>{
    res.render('login');
 })
-app.post('/api/change-password', async (req, res) => {
-	const { token, newpassword: plainTextPassword } = req.body
-
-	if (!plainTextPassword || typeof plainTextPassword !== 'string') {
-		return res.json({ status: 'error', error: 'Invalid password' })
-	}
-
-	if (plainTextPassword.length < 5) {
-		return res.json({
-			status: 'error',
-			error: 'Password too small. Should be atleast 6 characters'
-		})
-	}
-
-	try {
-		const user = jwt.verify(token, JWT_SECRET)
-
-		const _id = user.id
-
-		const password = await bcrypt.hash(plainTextPassword, 10)
-
-		await User.updateOne(
-			{ _id },
-			{
-				$set: { password }
-			}
-		)
-		res.json({ status: 'ok' })
-	} catch (error) {
-		console.log(error)
-		res.json({ status: 'error', error: ';))' })
-	}
-})
-
 app.post('/api/login', async (req, res) => {
 	const { username, password } = req.body
 	const user = await User.findOne({ username }).lean()
@@ -124,5 +90,5 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log('Server up at ${port}')
+	console.log(`Server up at ${port}`)
 })
