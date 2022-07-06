@@ -124,5 +124,5 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log('Server up at 9999')
+	console.log('Server up at ${port}')
 })
