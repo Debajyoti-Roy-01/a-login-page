@@ -9,7 +9,7 @@ const hbs=require("hbs");
 const port=process.env.PORT || 10000;
 
 const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
-const MONGOURI='mongodb+srv://Debajyoti:2hy61vTl2B9KFRkE@cluster0.v5atl.mongodb.net/mernstack?retryWrites=true&w=majority';
+const MONGOURI='mongodb+srv://<username>:<password>@cluster0.v5atl.mongodb.net/?retryWrites=true&w=majority';
 
 const url = MONGOURI;
     
